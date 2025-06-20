@@ -1,0 +1,39 @@
+.exam-detail-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #16243f;
+  color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+}
+
+.exam-detail-container h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #8b0000;
+  padding-bottom: 10px;
+}
+
+.exam-detail-container p {
+  font-size: 18px;
+  margin-bottom: 25px;
+  color: #cbd0db;
+}
+
+.exam-detail-container h4 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.exam-detail-container ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.exam-detail-container li {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #e0e5ec;
+}

@@ -1,0 +1,40 @@
+.app-footer {
+  background-color: #16243f;
+  color: #ffffff;
+  text-align: center;
+  padding: 20px 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.footer-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #8b0000;
+}
+
+.footer-text {
+  font-size: 14px;
+}
+
+
+body, #root, .app-wrapper {
+  padding-bottom: 80px;
+}

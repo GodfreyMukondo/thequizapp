@@ -1,0 +1,58 @@
+form {
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: #16243f;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  color: #fff;
+}
+
+form div {
+  margin-bottom: 20px;
+}
+
+form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+form input[type="text"],
+form input[type="number"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 6px;
+  background-color: #1f2e4d;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+}
+
+form input::placeholder {
+  color: #cbd0db;
+}
+
+form input:focus {
+  border: 2px solid #8b0000;
+  background-color: #263a5f;
+}
+
+form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #8b0000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #a80000;
+}

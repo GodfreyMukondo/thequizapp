@@ -1,0 +1,120 @@
+.container {
+  max-width: 1100px;
+  margin: 40px auto;
+  background-color: #16243f;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+
+h2, h3 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+form .form-group,
+form .form-row {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  color: #cbd0db;
+  display: block;
+  margin-bottom: 6px;
+}
+
+input.form-control {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: none;
+  background-color: #1f2e4d;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+}
+
+input.form-control:focus {
+  background-color: #2a3e66;
+  border: 2px solid #8b0000;
+}
+
+button.btn {
+  padding: 10px 16px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button.btn-primary {
+  background-color: #8b0000;
+  color: #fff;
+  border: none;
+}
+
+button.btn-primary:hover {
+  background-color: #a80000;
+}
+
+button.btn-warning {
+  background-color: #f0ad4e;
+  color: #212529;
+  border: none;
+}
+
+button.btn-warning:hover {
+  background-color: #ec971f;
+}
+
+button.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+}
+
+button.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.table {
+  width: 100%;
+  margin-top: 30px;
+  border-collapse: collapse;
+  background-color: #1c2e50;
+  color: #fff;
+}
+
+.table thead {
+  background-color: #22395c;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #2f4b75;
+}
+
+.table th {
+  color: #cbd0db;
+  font-weight: bold;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-5 {
+  margin-bottom: 2rem;
+}
