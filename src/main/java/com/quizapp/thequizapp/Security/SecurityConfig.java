@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/auth/**", "/api/exams/**").permitAll()
+                        .requestMatchers("/api/questions/**").hasRole("ADMIN")// Only admin
                         .anyRequest().authenticated()
                 );
 

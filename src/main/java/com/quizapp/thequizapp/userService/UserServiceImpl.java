@@ -9,6 +9,7 @@ import com.quizapp.thequizapp.userService1.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,11 +44,20 @@ public class UserServiceImpl implements UserService {
         if (repo.findByUsername(user.getUsername()).isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists");
         }
+
+        // Validating role
+        String role = user.getRole();
+        if (role == null || (!role.equalsIgnoreCase("student") && !role.equalsIgnoreCase("admin"))) {
+            return ResponseEntity.badRequest().body("Invalid role. Must be 'student' or 'admin'.");
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("student");
+        user.setRole(role.toLowerCase()); // Optional: standardising the role
+
         AppUser savedUser = repo.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
+
 
     @Override
     public ResponseEntity<?> login(LoginRequest request) {
@@ -63,8 +73,11 @@ public class UserServiceImpl implements UserService {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
 
+        //  Including role in the authorities because Spring expects roles prefixed with "ROLE_"
+        List<SimpleGrantedAuthority> authorities =
+                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().toUpperCase()));
 
-        UserDetails userDetails = new User(user.getUsername(), user.getPassword(), new ArrayList<>());
+        UserDetails userDetails = new User(user.getUsername(), user.getPassword(), authorities);
 
         // Generate JWT token
         String token = jwtUtil.generateToken(userDetails);
