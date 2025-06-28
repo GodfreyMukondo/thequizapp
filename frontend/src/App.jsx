@@ -17,6 +17,8 @@ import Unauthorized from './pages/Unauthorized';
 import AddExam from './components/exam/AddExam';
 import ExamsPage from './components/exam/ExamsPage';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function PrivateLayout({ children }) {
   const { auth } = useContext(AuthContext);
@@ -45,7 +47,6 @@ function AppRoutes() {
 
   return (
     <Routes>
-      {/* Default route */}
       <Route
         path="/"
         element={
@@ -57,12 +58,10 @@ function AppRoutes() {
         }
       />
 
-      {/* Public Routes */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
 
-      {/* Protected Routes */}
       <Route
         path="/home"
         element={
@@ -138,9 +137,7 @@ function AppRoutes() {
           </PrivateLayout>
         }
       />
-
     </Routes>
-
   );
 }
 
@@ -149,6 +146,7 @@ function App() {
     <AuthProvider>
       <Router>
         <AppRoutes />
+        <ToastContainer position="top-right" autoClose={3000} />
       </Router>
     </AuthProvider>
   );

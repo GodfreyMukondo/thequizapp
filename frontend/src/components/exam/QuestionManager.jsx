@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../../api/api';
 import '../../assets/css/questionManager.css';
 import Header from '../common/Header';
 import Footer from '../common/Footer';
+import { toast } from 'react-toastify';
 
 function QuestionManager() {
   const [questions, setQuestions] = useState([]);
   const [editingId, setEditingId] = useState(null);
+  const [role, setRole] = useState(null); // store user role
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     content: '',
@@ -18,9 +22,32 @@ function QuestionManager() {
     exam_id: '',
   });
 
+  // Decode token to get user role
+  const getUserRoleFromToken = () => {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      // Adjust this if your token has roles in another field like 'roles' or 'authorities'
+      return payload.role || null;
+    } catch (err) {
+      console.error('Invalid token', err);
+      return null;
+    }
+  };
+
+  // Check role and fetch data if admin
   useEffect(() => {
-    fetchQuestions();
-  }, []);
+    const userRole = getUserRoleFromToken();
+    setRole(userRole);
+
+    if (userRole === 'ROLE_ADMIN') {
+      fetchQuestions();
+    } else {
+      toast.error('Access denied. Admins only.');
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const fetchQuestions = async () => {
     try {
@@ -28,7 +55,7 @@ function QuestionManager() {
       setQuestions(res.data);
     } catch (err) {
       console.error('Failed to fetch questions', err.response || err);
-      alert('Failed to fetch questions');
+      toast.error('Failed to fetch questions');
     }
   };
 
@@ -41,7 +68,6 @@ function QuestionManager() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // This Prepare data for backend: exam -> { id: exam_id }
     const payload = {
       ...form,
       exam: { id: parseInt(form.exam_id, 10) }
@@ -65,9 +91,10 @@ function QuestionManager() {
       });
       setEditingId(null);
       fetchQuestions();
+      toast.success(editingId ? 'Question updated' : 'Question added');
     } catch (err) {
       console.error('Submission failed', err.response || err);
-      alert(`Failed to submit question: ${err.response?.data?.message || err.message}`);
+      toast.error(`Failed to submit question: ${err.response?.data?.message || err.message}`);
     }
   };
 
@@ -89,9 +116,10 @@ function QuestionManager() {
     try {
       await api.delete(`/questions/${id}`);
       fetchQuestions();
+      toast.success('Question deleted');
     } catch (err) {
       console.error('Delete failed', err.response || err);
-      alert(`Failed to delete question: ${err.response?.data?.message || err.message}`);
+      toast.error(`Failed to delete question: ${err.response?.data?.message || err.message}`);
     }
   };
 
@@ -103,6 +131,7 @@ function QuestionManager() {
           <div className="container">
             <h2 className="mb-4">{editingId ? 'Edit MCQ' : 'Add New MCQ'}</h2>
             <form onSubmit={handleSubmit} className="mb-5">
+              {/* Form fields unchanged */}
               <div className="form-group">
                 <label>Exam ID:</label>
                 <input
